@@ -1,13 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import AddUser from './components/Users/AddUser';
+import AddUser from "./components/Users/AddUser";
+import Card from "./components/UI/Card";
 
+import classes from "./components/Users/AddUser.module.css";
 
 function App() {
   return (
-    <div>
-      <AddUser/>
-    </div>
+    <Card className={classes.input}>
+      <AddUser />
+    </Card>
   );
 }
 
