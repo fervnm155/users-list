@@ -1,46 +1,62 @@
 import { useState } from "react";
 
+import toast, { Toaster } from "react-hot-toast";
+
 import Button from "../UI/Button";
 
 import styles from "./AddUser.module.css";
 
 const AddUser = (props) => {
-    const [enteredUsername,setEnteredUsername]=useState('');
-    const [enteredAge,setEnteredAge]=useState(1);
-
+  const [enteredUsername, setEnteredUsername] = useState("");
+  const [enteredAge, setEnteredAge] = useState(1);
 
   const addUserHandler = (event) => {
     event.preventDefault();
-    if(enteredUsername.trim().length<1){
-        return(
-            alert('invalid username')
-        );
+    if (enteredUsername.trim().length < 1) {
+      return (
+        // alert('invalid username')
+        toast.error("Invalid username")
+      );
     }
-    if(+enteredAge<1){
-        return(
-            alert('invalidage')
-        );
+    if (+enteredAge < 1) {
+      return (
+        // alert('invalid age')
+        toast.error("Invalid age")
+      );
     }
+    props.onAddUser(enteredUsername,enteredAge);
     setEnteredAge(1);
     setEnteredUsername("");
   };
 
-  const usernameChangeHandler=(event)=>{
+  const usernameChangeHandler = (event) => {
     setEnteredUsername(event.target.value);
-  }
+  };
 
-  const ageChangeHandler=(event)=>{
+  const ageChangeHandler = (event) => {
     setEnteredAge(event.target.value);
-  }
+  };
 
   return (
     <form onSubmit={addUserHandler}>
       <h1 className={styles.h1}>Evil Unicorn</h1>
       <label htmlFor="username">Username</label>
-      <input id="username" type="text" placeholder="Introduce user name" value={enteredUsername} onChange={usernameChangeHandler}/>
+      <input
+        id="username"
+        type="text"
+        placeholder="Introduce user name"
+        value={enteredUsername}
+        onChange={usernameChangeHandler}
+      />
       <label htmlFor="age">Age</label>
-      <input id="age" type="number" value={enteredAge} onChange={ageChangeHandler}/>
+      <input
+        id="age"
+        type="number"
+        value={enteredAge}
+        onChange={ageChangeHandler}
+      />
       <Button type="submit">Add user</Button>
+      <Toaster />
     </form>
   );
 };
