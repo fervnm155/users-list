@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
+import Wrapper from "../Helpers/Wrpper";
 
 import styles from "./AddUser.module.css";
 
@@ -53,7 +54,7 @@ const AddUser = (props) => {
   };
 
   return (
-    <div>
+    <Wrapper>
       {error && (
         <ErrorModal
           title={error.title}
@@ -81,7 +82,7 @@ const AddUser = (props) => {
         <Button type="submit">Add user</Button>
         <Toaster />
       </form>
-    </div>
+    </Wrapper>
   );
 };
 
