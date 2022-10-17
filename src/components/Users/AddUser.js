@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import toast, { Toaster } from "react-hot-toast";
 
@@ -9,13 +9,18 @@ import Wrapper from "../Helpers/Wrpper";
 import styles from "./AddUser.module.css";
 
 const AddUser = (props) => {
-  const [enteredUsername, setEnteredUsername] = useState("");
-  const [enteredAge, setEnteredAge] = useState(1);
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
+  // const [enteredUsername, setEnteredUsername] = useState("");
+  // const [enteredAge, setEnteredAge] = useState(1);
   const [error, setError] = useState();
 
   const addUserHandler = (event) => {
     event.preventDefault();
-    if (enteredUsername.trim().length < 1) {
+    const enteredName = nameInputRef.current.value;
+    const enteredUserAge = ageInputRef.current.value;
+    if (enteredName.trim().length < 1) {
       setError({
         title: "Invalid input",
         message: "Invalid username",
@@ -25,7 +30,7 @@ const AddUser = (props) => {
         toast.error("Invalid username")
       );
     }
-    if (+enteredAge < 1) {
+    if (+enteredUserAge < 1) {
       setError({
         title: "Invalid input",
         message: "Invalid username",
@@ -35,19 +40,21 @@ const AddUser = (props) => {
         toast.error("Invalid age")
       );
     }
-    props.onAddUser(enteredUsername, enteredAge);
-    setEnteredAge(1);
-    setEnteredUsername("");
+    props.onAddUser(enteredName, enteredUserAge);
+    // setEnteredAge(1);
+    // setEnteredUsername("");
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = "";
     setError(false);
   };
 
-  const usernameChangeHandler = (event) => {
-    setEnteredUsername(event.target.value);
-  };
+  // const usernameChangeHandler = (event) => {
+  //   setEnteredUsername(event.target.value);
+  // };
 
-  const ageChangeHandler = (event) => {
-    setEnteredAge(event.target.value);
-  };
+  // const ageChangeHandler = (event) => {
+  //   setEnteredAge(event.target.value);
+  // };
 
   const errorHandler = () => {
     setError(null);
@@ -69,15 +76,17 @@ const AddUser = (props) => {
           id="username"
           type="text"
           placeholder="Introduce user name"
-          value={enteredUsername}
-          onChange={usernameChangeHandler}
+          // value={enteredUsername}
+          // onChange={usernameChangeHandler}
+          ref={nameInputRef}
         />
         <label htmlFor="age">Age</label>
         <input
           id="age"
           type="number"
-          value={enteredAge}
-          onChange={ageChangeHandler}
+          // value={enteredAge}
+          // onChange={ageChangeHandler}
+          ref={ageInputRef}
         />
         <Button type="submit">Add user</Button>
         <Toaster />

@@ -4,7 +4,7 @@ import styles from './UsersList.module.css'
 
 const UsersList = (props) => {
   return (
-    <Card classNmae={styles.users}>
+    <Card classname={styles.users}>
       <ul>
         {props.users.map((user) => (
           <li key={user.id}>
